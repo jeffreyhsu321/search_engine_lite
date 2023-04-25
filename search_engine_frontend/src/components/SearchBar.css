@@ -23,4 +23,8 @@ input {
 
 input:focus { outline: none; }
 
+.result-wrapper {
+    margin: 10px;
+}
+
 #search-icon { color: #32527B; }

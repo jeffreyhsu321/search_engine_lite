@@ -27,16 +27,18 @@ export const SearchBar = () => {
         />
         <button onClick={handleSearch}>Search</button>
 
-        {results && results.length > 0 && (
-            <div>
-            {results.map((result) => (
-                <div key={result.link}>
-                <a href={result.link}>{result.title}</a>
-                <p>{result.snippet}</p>
+        <div className="results-wrapper">
+            {results && results.length > 0 && (
+                <div>
+                {results.map((result) => (
+                    <div key={result.link}>
+                    <a href={result.link}>{result.title}</a>
+                    <p>{result.snippet}</p>
+                    </div>
+                ))}
                 </div>
-            ))}
-            </div>
-        )}
+            )}
+        </div>
 
     </div>
 };
