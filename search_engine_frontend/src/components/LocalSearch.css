@@ -1,6 +1,6 @@
 
 .local-search {
-    background-color: white;
+    background-color: #32527B;
     width: 100%;
     height: 2.5rem;
 
@@ -28,4 +28,4 @@ input:focus { outline: none; }
     margin: 10px;
 }
 
-#search-icon { color: #32527B; }
+#search-icon { color: #FFFFFF; }

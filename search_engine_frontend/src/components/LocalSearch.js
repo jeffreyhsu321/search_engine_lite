@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import MiniSearch from "minisearch";
 
 import "./LocalSearch.css";
@@ -45,7 +46,7 @@ export const LocalSearch = () => {
             searchOptions: {
                 boost: { Song: 2, Artist: 1 },
                 prefix: true,
-                fuzzy: 0.25
+                //fuzzy: 0.25
             },
             
             //idField: "Song"
@@ -61,33 +62,36 @@ export const LocalSearch = () => {
         console.log(searchResults);
       };
 
-    return <div className="local-search">
+    return <div>
+        <Link to="/"> <button>SWITCH MODE</button> </Link>
         
-        <FaSearch id="search-icon" />
-        <input placeholder="Type to search.." value={query} onChange={(e) => setQuery(e.target.value)}/>
-        <button onClick={handleSearch}>Search</button>
+        <div className="local-search">
+            <FaSearch id="search-icon" />
+            <input placeholder="Type to search.." value={query} onChange={(e) => setQuery(e.target.value)}/>
+            <button onClick={handleSearch}>Search</button>
 
-        <div className="result-wrapper">
-            {searchResults.length > 0 && (
-                <table>
-                    <thead>
-                        <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Year</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {searchResults.map(result => (
-                        <tr key={result.id}>
-                            <td>{result.Song}</td>
-                            <td>{result.Artist}</td>
-                            <td>{result.Year}</td>
-                        </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+            <div className="result-wrapper">
+                {searchResults.length > 0 && (
+                    <table>
+                        <thead>
+                            <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {searchResults.map(result => (
+                            <tr key={result.id}>
+                                <td>{result.Song}</td>
+                                <td>{result.Artist}</td>
+                                <td>{result.Year}</td>
+                            </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                )}
+            </div>
         </div>
     </div>
 };
