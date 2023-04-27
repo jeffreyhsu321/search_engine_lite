@@ -23,8 +23,9 @@ export const SearchBar = () => {
         <Link to="/local"> <button>SWITCH MODE</button> </Link>
 
         <div className="input-wrapper">
-            <FaSearch id="search-icon" />
+            <FaSearch id="search-icon-web" />
             <input
+                id="input-web"
                 placeholder="Type to search.."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}

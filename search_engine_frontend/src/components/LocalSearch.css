@@ -18,11 +18,15 @@ input {
     height: 100%;
 
     font-size: 1rem;
+    color: #FFF;
 
     margin-left:  5px;
 }
+input::placeholder {
+    color: #EEE;
+}
 
-input:focus { outline: none; }
+focus { outline: none; }
 
 .result-wrapper {
     margin: 10px;
