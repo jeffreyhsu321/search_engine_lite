@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import MiniSearch from "minisearch";
 
 import "./LocalSearch.css";
-import { FaSearch } from "react-icons/fa";
+import { FaMusic } from "react-icons/fa";
 
 import Card from "../components/Card.js";
 
@@ -86,14 +86,20 @@ export const LocalSearch = () => {
       
 
     return <div>
-        <Link to="/"> <button className="btn-main">SWITCH TO WEB</button> </Link>
+        <Link to="/"> <button className="btn-switch">SWITCH TO WEB</button> </Link>
         
         <div className="input-wrapper-local">
-            <div>
-                <FaSearch id="search-icon-local" />
-                <input id="input-local" placeholder="Type to search.." value={query} onChange={(e) => setQuery(e.target.value)}/>
-            </div>
-            <button className="btn-main" onClick={handleSearch}>Search</button>
+
+            <FaMusic id="search-icon-local" />
+            <input 
+                id="input-local" 
+                placeholder="Type to search.." 
+                value={query} 
+                onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleSearch}
+            />
+
+            <button className="btn-search" onClick={handleSearch}>Search</button>
 
             <div className="result-wrapper">
                 {searchResults.length > 0 && (

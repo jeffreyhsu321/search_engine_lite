@@ -19,8 +19,8 @@ export const WebSearch = () => {
     };
       
 
-    return <div>
-        <Link to="/local"> <button className="btn-main">SWITCH TO LOCAL</button> </Link>
+    return <div className="web-main">
+        <Link to="/local" id="link"> <button className="btn-switch">SWITCH TO LOCAL</button> </Link>
 
         <div className="input-wrapper-web">
             <div>
@@ -30,17 +30,18 @@ export const WebSearch = () => {
                     placeholder="Type to search.."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={handleSearch}
                 />
             </div>
-            <button className="btn-main" onClick={handleSearch}>Search</button>
+            <button className="btn-search" onClick={handleSearch}>Search</button>
 
             <div className="results-wrapper">
                 {results && results.length > 0 && (
                     <div>
                     {results.map((result) => (
-                        <div key={result.link}>
+                        <div key={result.link} className="web-snippet">
                         <a href={result.link}>{result.title}</a>
-                        <p>{result.snippet}</p>
+                        <p id="web-snippet">{result.snippet}</p>
                         </div>
                     ))}
                     </div>

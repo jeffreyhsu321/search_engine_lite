@@ -1,9 +1,13 @@
+@import "../colors.css";
+
 .card-wrapper {
     width: 300px;
     overflow: hidden;
     box-shadow: 0px 0px 16px -6px;
     transition: 0.2s;
     animation: ease-in;
+    background-color: var(--primary-color);
+    border-radius: 10px;
 }
 
 .card-wrapper:hover {
@@ -26,11 +30,13 @@
     padding: 0;
     text-align: center;
     text-transform: capitalize;
+    color: var(--tertiary-color);
 }
 .card-title h3 {
     text-transform: capitalize;
     margin: 0;
     padding: 0;
+    color: var(--tertiary-color);
 }
 .card-title {
     margin-bottom: 0.5rem;
@@ -46,7 +52,7 @@
 }
 .btn button {
     padding: 0.5rem;
-    background-color: #32527B;
+    background-color: var(--accent-color-dull);
     border: none;
     transition: 0.2s;
     margin-bottom: 0.5rem;
@@ -58,10 +64,14 @@
     color: #FFF;
 }
 .btn button:hover {
-    background-color: #32527B;
+    background-color: var(--accent-color);
+    transform: scale(1.1);
 }
 
-/* LYRICS MODAL */
+
+
+
+/* ------------LYRICS MODAL---------- */
 .modal, .overlay {
     width: 100vw;
     height: 100vh;
@@ -80,7 +90,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #32527B;
+    background: var(--primary-color);
     padding: 16px 32px;
     border-radius: 6px;
     max-width: 600px;
