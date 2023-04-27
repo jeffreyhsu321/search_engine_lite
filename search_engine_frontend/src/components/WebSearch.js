@@ -2,12 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { Link } from 'react-router-dom';
 
-import "./SearchBar.css";
+import "./WebSearch.css";
 import { FaSearch } from "react-icons/fa";
 
 //auth: "AIzaSyAQ1I3CQT93_CxTU9P69vjrEK5YDRWSUB8"
 
-export const SearchBar = () => {
+export const WebSearch = () => {
 
     const [query, setQuery] = useState("");         // search bar input
     const [results, setResults] = useState([]);

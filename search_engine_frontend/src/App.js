@@ -2,7 +2,7 @@ import './App.css';
 
 import { Routes, Route } from "react-router-dom";
 
-import { SearchBar } from "./components/SearchBar";
+import { WebSearch } from "./components/WebSearch";
 import { LocalSearch } from "./components/LocalSearch";
 
 
@@ -12,7 +12,7 @@ function App() {
       <div className="main">
 
         <Routes>
-          <Route path='/' element={<SearchBar />} />
+          <Route path='/' element={<WebSearch />} />
           <Route path='/local' element={<LocalSearch />} />
         </Routes>
 
