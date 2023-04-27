@@ -24,7 +24,7 @@ function Card({title, imageUrl, artist, rank, year, snippet, lyrics}) {
                         <p>{artist}</p>
                         <p>{year}</p>
                         <p id="rank">RANK - {rank}</p>
-                        <p>{snippet}</p>
+                        <p id="snippet">..{snippet}..</p>
                     </div>
                 </div>
                 <div className="btn">
