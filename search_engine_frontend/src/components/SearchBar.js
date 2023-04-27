@@ -20,7 +20,7 @@ export const SearchBar = () => {
       
 
     return <div>
-        <Link to="/local"> <button>SWITCH TO LOCAL</button> </Link>
+        <Link to="/local"> <button className="btn-main">SWITCH TO LOCAL</button> </Link>
 
         <div className="input-wrapper-web">
             <div>
@@ -32,7 +32,7 @@ export const SearchBar = () => {
                     onChange={(e) => setQuery(e.target.value)}
                 />
             </div>
-            <button onClick={handleSearch}>Search</button>
+            <button className="btn-main" onClick={handleSearch}>Search</button>
 
             <div className="results-wrapper">
                 {results && results.length > 0 && (

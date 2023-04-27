@@ -9,6 +9,7 @@
     box-shadow: 0px 0px 8px #222;
 
     align-items: center;
+    justify-content: center;
 }
 
 #input-local {
@@ -33,6 +34,17 @@ input:focus { outline: none; }
 
 #search-icon-local { color: #FFF; }
 
-button {
+.btn-main {
     padding: 5px;
+    font-weight: bold;
+}
+
+
+.card-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0;
+    gap: 0;
+    row-gap: 2px;
+    column-gap: 16px;
 }

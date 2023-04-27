@@ -32,3 +32,8 @@ input:focus { outline: none; }
 }
 
 #search-icon-web { color: #32527B; }
+
+.btn-main {
+    padding: 5px;
+    font-weight: bold;
+}
