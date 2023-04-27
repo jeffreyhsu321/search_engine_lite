@@ -20,16 +20,18 @@ export const SearchBar = () => {
       
 
     return <div>
-        <Link to="/local"> <button>SWITCH MODE</button> </Link>
+        <Link to="/local"> <button>SWITCH TO LOCAL</button> </Link>
 
-        <div className="input-wrapper">
-            <FaSearch id="search-icon-web" />
-            <input
-                id="input-web"
-                placeholder="Type to search.."
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-            />
+        <div className="input-wrapper-web">
+            <div>
+                <FaSearch id="search-icon-web" />
+                <input
+                    id="input-web"
+                    placeholder="Type to search.."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+            </div>
             <button onClick={handleSearch}>Search</button>
 
             <div className="results-wrapper">

@@ -63,11 +63,13 @@ export const LocalSearch = () => {
       };
 
     return <div>
-        <Link to="/"> <button>SWITCH MODE</button> </Link>
+        <Link to="/"> <button>SWITCH TO WEB</button> </Link>
         
-        <div className="local-search">
-            <FaSearch id="search-icon" />
-            <input placeholder="Type to search.." value={query} onChange={(e) => setQuery(e.target.value)}/>
+        <div className="input-wrapper-local">
+            <div>
+                <FaSearch id="search-icon" />
+                <input id="input-local" placeholder="Type to search.." value={query} onChange={(e) => setQuery(e.target.value)}/>
+            </div>
             <button onClick={handleSearch}>Search</button>
 
             <div className="result-wrapper">
