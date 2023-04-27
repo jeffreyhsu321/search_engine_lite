@@ -2,26 +2,20 @@ import React from "react";
 import { useState } from 'react';
 import MiniSearch from "minisearch";
 
+import "./LocalSearch.css";
+import { FaSearch } from "react-icons/fa";
 
 export const LocalSearch = () => {
 
-    const [searchTerm, setSearchTerm] = useState('');
+    const [query, setQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
-    const mockData = [{
-        id: 1,
-        title: "FIRST",
-        description: "This is the description for the first title.",
-        price: 10
-    }]
-
-
     const handleSearch = async () => {
-        // // Read the CSV file
+        // read csv file
         const response = await fetch('./lyrics.csv');
         const text = await response.text();
 
-        // Parse the CSV data into an array of objects
+        // parse csv data into array of objects
         const data = text.split('\n').map(row => {
             const columns = row.split(',');
             return {
@@ -34,12 +28,12 @@ export const LocalSearch = () => {
             };
         });
 
+        // make unique ID
         data.forEach((entry, i) => {
             entry.id = entry.Song + "-" + entry.Artist + "-" + entry.Year
-
-            console.log(entry.id);
         })
     
+        // init and setup MiniSearch
         const searchIndex = new MiniSearch({
             // fields to index
             fields: ["Rank","Song","Artist","Year","Lyrics","Source"],
@@ -47,6 +41,7 @@ export const LocalSearch = () => {
             // fields to be returned
             storeFields: ["Rank","Song","Artist","Year","Lyrics","Source"],
     
+            // search options
             searchOptions: {
                 boost: { Song: 2, Artist: 1 },
                 prefix: true,
@@ -57,39 +52,40 @@ export const LocalSearch = () => {
         });
         searchIndex.addAll(data);
 
-        // Search for the query term
-        let searchResults = searchIndex.search("beatles");
+        // search for the query term
+        let searchResults = searchIndex.search(query);
     
-        // Update the search results
+        // update the search results
         setSearchResults(searchResults);
 
         console.log(searchResults);
       };
 
-    return <div>
-        <div>
-            <input type="text" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
-            <button onClick={handleSearch}>Search</button>
+    return <div className="local-search">
+        
+        <FaSearch id="search-icon" />
+        <input placeholder="Type to search.." value={query} onChange={(e) => setQuery(e.target.value)}/>
+        <button onClick={handleSearch}>Search</button>
+
+        <div className="result-wrapper">
             {searchResults.length > 0 && (
                 <table>
-                <thead>
-                    <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {searchResults.map(result => (
-                    <tr key={result.id}>
-                        <td>{result.id}</td>
-                        <td>{result.title}</td>
-                        <td>{result.description}</td>
-                        <td>{result.price}</td>
-                    </tr>
-                    ))}
-                </tbody>
+                    <thead>
+                        <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Year</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {searchResults.map(result => (
+                        <tr key={result.id}>
+                            <td>{result.Song}</td>
+                            <td>{result.Artist}</td>
+                            <td>{result.Year}</td>
+                        </tr>
+                        ))}
+                    </tbody>
                 </table>
             )}
         </div>
