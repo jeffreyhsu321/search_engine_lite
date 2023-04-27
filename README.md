@@ -158,6 +158,6 @@ return { ...result, snippet};
 
 
 ## SCREENSHOTS
-- web search![web search](./ss/search-engine-lite-ss-01.png)
-- local search![local search](./ss/search-engine-lite-ss-02.png)
-- local search - clicking on \[view lyrics\]![lyrics modal](./ss/search-engine-lite-ss-03.png)
+- web search![web search](./search_engine_frontend/ss/search-engine-lite-ss-01.png)
+- local search![local search](./search_engine_frontend/ss/search-engine-lite-ss-02.png)
+- local search - clicking on \[view lyrics\]![lyrics modal](./search_engine_frontend/ss/search-engine-lite-ss-03.png)
