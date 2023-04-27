@@ -84,7 +84,7 @@ export const LocalSearch = () => {
         console.log(searchResults);
     };
       
-
+    
     return <div>
         <Link to="/"> <button className="btn-switch">SWITCH TO WEB</button> </Link>
         
@@ -96,7 +96,7 @@ export const LocalSearch = () => {
                 placeholder="Type to search.." 
                 value={query} 
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={(e) => {if (e.key === 'Enter') { this.search() }}}
+                onKeyDown={(e) => {if (e.key === 'Enter') { handleSearch() }}}
             />
 
             <button className="btn-search" onClick={handleSearch}>Search</button>
@@ -105,7 +105,7 @@ export const LocalSearch = () => {
                 {searchResults.length > 0 && (
                     <div className="card-row">
                         { searchResults.map(result => (
-                                <Card
+                                <Card key={result.Song + result.Artist + result.Rank}
                                     title={result.Song.replace(/["']/g, "")}
                                     imageUrl=''
                                     body={".. "+result.snippet.replace(/["']/g, "")+" .."}
