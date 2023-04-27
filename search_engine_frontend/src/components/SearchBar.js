@@ -39,6 +39,5 @@ export const SearchBar = () => {
                 </div>
             )}
         </div>
-
     </div>
 };
