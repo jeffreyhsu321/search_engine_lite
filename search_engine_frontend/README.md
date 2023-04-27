@@ -1,70 +1,163 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Search Engine Lite
+APRIL 2023
+___
 
-## Available Scripts
+## LINKS
+---
+[Github](https://github.com/jeffreyhsu321/search_engine_lite) (https://github.com/jeffreyhsu321/search_engine_lite)
 
-In the project directory, you can run:
+[Website](https://search-engine-lite-uu36adnl7a-uc.a.run.app) (https://search-engine-lite-uu36adnl7a-uc.a.run.app)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## APP BASICS
+___
+- React.js app
+- initialized with `npm react-create-app`
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##### Hosting
+- continuous deployment on Google Cloud's Cloud Run service
+- each push to remote branch (Github) will trigger a new build and deployment
 
-### `npm test`
+> note: cold start is enabled to save on costs, so initial visit to the web page will be significantly longer than usual
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## WEB SEARCH
+___
+##### Programmable Search Engine by Google
 
-### `npm run build`
+1. Obtain an **API key**
+`AIzaSyAQ1I3CQT93_CxTU9P69vjrEK5YDRWSUB8`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Create a custom search engine and obtain CX (engine ID)
+`250bde6da254a407d`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Simple fetch from the custom search engine
+```javascript
+const [query, setQuery] = useState("");
+const [results, setResults] = useState([]);
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+const API_KEY = 'AIzaSyAQ1I3CQT93_CxTU9P69vjrEK5YDRWSUB8'
+const CX = '250bde6da254a407d'
+const URL = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&q=${query}`
+  
 
-### `npm run eject`
+const handleSearch = async () => {
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+	const response = await fetch(URL);
+	const data = await response.json();
+	setResults(data.items);
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+};
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> test link to engine:   https://cse.google.com/cse?cx=250bde6da254a407d
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+4. UI: Input bar
+```javascript
+<input
+	placeholder="Type to search.."
+	value={query}
+	onChange={(e) => setQuery(e.target.value)}   // sets query
+	onKeyDown={handleSearch}    // detects user pressing enter
+/>
+```
+- search is done on every key press just as a fun effect
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+4. UI: Search button
+```javascript
+<button onClick={handleSearch}>Search</button>
+```
+- calls `the handleSearch()` function in step 3
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. UI: Results (snippets)
+```javascript
+{results && results.length > 0 && (  // short circuit shortcut
 
-### Code Splitting
+	<div>
+		{results.map((result) => (
+			<div key={result.link} className="web-snippet">
+				<a href={result.link}>{result.title}</a>
+				<p id="web-snippet">{result.snippet}</p>
+			</div>
+		))}
+	</div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+)}
+```
+- short circuit shortcut that only shows the results if there are any to show
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+## LOCAL SEARCH
+---
+##### MiniSearch
+> `MiniSearch` is a tiny but powerful in-memory fulltext search engine written in JavaScript. It is respectful of resources, and it can comfortably run both in Node and in the browser.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+1. Initialization and setting parameters
+```javascript
+const searchIndex = new MiniSearch({
+	// fields to index
+	fields: ["Rank","Song","Artist","Year","Lyrics","Source"],
+	
+	// fields to be returned
+	storeFields: ["Rank","Song","Artist","Year","Lyrics","Source"],
 
-### Advanced Configuration
+	// index term processing
+	processTerm: (term) =>
+		stopWords.has(term) ? null : term.toLowerCase(), 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+	// search options
+	searchOptions: {
+		boost: { Song: 1, Artist: 5 },    // field weighting
+		prefix: true,                     // emulates stemming
+		fuzzy: 0.25,
+		processTerm: (term) => term.toLowerCase(), // search query processing
 
-### Deployment
+	fieldsWithHit: ["Lyrics"]  // for generating snipets
+}
+//idField: "Song"  // for if want to specify a different id field
+});
+```
+- in hindsight: the ranking probably doesn't need to be indexed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+2. Construct unique ID
+- MiniSearch requires unique ID for each document, however there are duplicate entries for every field (identical song names, artists, etc).
+- Solution: construct unique ID by combing certain fields
+```javascript
+data.forEach((entry, i) => {
+	entry.id = entry.Song + "-" + entry.Artist + "-" + entry.Year
+})
+```
 
-### `npm run build` fails to minify
+<div style="page-break-after: always;"></div>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+3. Construct snippets
+```javascript
+searchResults = searchResults.map(result => {
+	const lyrics = result.Lyrics;
+	const searchTerm = query.toLowerCase();
+	const index = lyrics.toLowerCase().indexOf(searchTerm);
+	const snippetStart = Math.max(index - snippetLength / 2, 0);
+	const snippetEnd = Math.min(index + searchTerm.length + snippetLength / 2, lyrics.length);
+	const snippet = lyrics.substring(snippetStart, snippetEnd);
+	
+return { ...result, snippet};
+});
+```
+- snippet is constructed by "highlighting" roughly `snippetLength/2` characters before and after the found query in the document
+- problems:
+	- snippets are able to grab content from preceding documents
+	- snippets might contain words that were cut off
+	- snippets do not prioritize popular sections of a song 
+		- (e.g it grabs the first matching term)
+
+- incomplete feature: to generate images to reflect the fetched documents
+
+<div style="page-break-after: always;"></div>
+
+
+## SCREENSHOTS
+- web search![web search](./ss/search-engine-lite-ss-01.png)
+- local search![local search](./ss/search-engine-lite-ss-02.png)
+- local search - clicking on \[view lyrics\]![lyrics modal](./ss/search-engine-lite-ss-03.png)
