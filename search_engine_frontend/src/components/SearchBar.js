@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from 'react-router-dom';
 
 import "./SearchBar.css";
 import { FaSearch } from "react-icons/fa";
@@ -18,26 +19,33 @@ export const SearchBar = () => {
     };
       
 
-    return <div className="input-wrapper">
-        <FaSearch id="search-icon" />
-        <input
-            placeholder="Type to search.."
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-        />
-        <button onClick={handleSearch}>Search</button>
+    return <div>
+        <Link to="/local"> <button>SWITCH TO LOCAL</button> </Link>
 
-        <div className="results-wrapper">
-            {results && results.length > 0 && (
-                <div>
-                {results.map((result) => (
-                    <div key={result.link}>
-                    <a href={result.link}>{result.title}</a>
-                    <p>{result.snippet}</p>
+        <div className="input-wrapper-web">
+            <div>
+                <FaSearch id="search-icon-web" />
+                <input
+                    id="input-web"
+                    placeholder="Type to search.."
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+            </div>
+            <button onClick={handleSearch}>Search</button>
+
+            <div className="results-wrapper">
+                {results && results.length > 0 && (
+                    <div>
+                    {results.map((result) => (
+                        <div key={result.link}>
+                        <a href={result.link}>{result.title}</a>
+                        <p>{result.snippet}</p>
+                        </div>
+                    ))}
                     </div>
-                ))}
-                </div>
-            )}
+                )}
+            </div>
         </div>
     </div>
 };
