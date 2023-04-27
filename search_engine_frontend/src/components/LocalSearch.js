@@ -96,7 +96,7 @@ export const LocalSearch = () => {
                 placeholder="Type to search.." 
                 value={query} 
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleSearch}
+                onKeyDown={(e) => {if (e.key === 'Enter') { this.search() }}}
             />
 
             <button className="btn-search" onClick={handleSearch}>Search</button>
@@ -113,6 +113,7 @@ export const LocalSearch = () => {
                                     rank={result.Rank}
                                     year={result.Year}
                                     lyrics={result.Lyrics}
+                                    snippet={result.snippet}
                                 />
                         ))}
                     </div>
